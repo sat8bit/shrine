@@ -1,0 +1,74 @@
+
+# Group 減算API
+
+減算は、取引を作成し、実行もしくはキャンセルを行います。
+
+作成された取引は必ず成功するわけではありません。
+
+ステータス遷移は以下の通りです。
+
+```
+created ( POST )
+   |-> succeeded ( PUT )
+   |-> failed    ( PUT )
+   `-> canceled  ( DELETE )
+```
+
+## 減算を作成する [POST /accounts/{accountId}/subtractions]
+
++ Parameters
+
+    + `accountId`: `ac_K6p7d7Zc6` (string) - 口座ID
+
++ Request (application/json)
+
+    + Attribute
+        + `value`                   : `10000` (number, required) - 減算額
+        + `description`             : `Description ....` (string, required) - 摘要
+        + `destinationTransactionId`: `transaction_0000001` (string, required) - 宛取引ID
+
+
++ Response 201 (application/json)
+
+    + Attribute (Subtraction)
+
+## 減算を参照する [GET /accounts/{accountId}/subtractions/{subtractionId}]
+
++ Parameters
+    + `accountId`       : `ac_K6p7d7Zc6` (string) - 口座ID
+    + `subtractionId`   : `su_ijafAgfEQ` (string) - 減算ID
+
++ Response 200 (application/json)
+
+    + Attribute (Subtraction)
+
+## 減算を実行する [PUT /accounts/{accountId}/subtractions/{subtractionId}]
+
++ Parameters
+    + `accountId`       : `ac_K6p7d7Zc6` (string) - 口座ID
+    + `subtractionId`   : `su_ijafAgfEQ` (string) - 減算ID
+
++ Response 200 (application/json)
+
+    + Attribute (Subtraction)
+
+## 減算をキャンセルする [DELETE /accounts/{accountId}/subtractions/{subtractionId}]
+
++ Parameters
+    + `accountId`       : `ac_K6p7d7Zc6` (string) - 口座ID
+    + `subtractionId`   : `su_ijafAgfEQ` (string) - 減算ID
+
++ Response 204
+
+## Data Structure
+
+### Subtraction
+
++ `subtractionId`           : `su_ijafAgfEQ` (string, required) - 減算ID
++ `value`                   : `10000` (number, required) - 減算額
++ `description`             : `Description ....` (string, required) - 摘要
++ `destinationTransactionId`: `transaction_0000001` (string, required) - 宛取引ID
++ `createdAt`               : `2001-08-02T10:45:23+09:00` (string, required) - 作成日時
++ `executedAt`              : `2001-08-02T10:50:25+09:00` (string, nullable) - 取引実行日時
++ `status`                  : `created` (string, required) - ステータス
++ `causeCode`               : `0000` (string, required) -  原因コード

@@ -1,0 +1,74 @@
+
+# Group 加算API
+
+加算は、取引を作成し、実行もしくはキャンセルを行います。
+
+作成された取引は必ず成功するわけではありません。
+
+ステータス遷移は以下の通りです。
+
+```
+created ( POST )
+   |-> succeeded ( PUT )
+   |-> failed    ( PUT )
+   `-> canceled  ( DELETE )
+```
+
+## 加算を作成する [POST /accounts/{accountId}/additions]
+
++ Parameters
+
+    + `accountId`: `ac_K6p7d7Zc6` (string) - 加算ID
+
++ Request (application/json)
+
+    + Attribute
+        + `value`               : `10000` (number, required) - 加算額
+        + `description`         : `Description ....` (string, required) - 摘要
+        + `sourceTransactionId` : `transaction_0000001` (string, required) - 元取引ID
+
+
++ Response 201 (application/json)
+
+    + Attribute (Addition)
+
+## 加算を参照する [GET /accounts/{accountId}/additions/{additionId}]
+
++ Parameters
+    + `accountId`   : `ac_K6p7d7Zc6` (string) - 口座ID
+    + `additionId`  : `ad_sakBUM8PY` (string) - 加算ID
+
++ Response 200 (application/json)
+
+    + Attribute (Addition)
+
+## 加算を実行する [PUT /accounts/{accountId}/additions/{additionId}]
+
++ Parameters
+    + `accountId`   : `ac_K6p7d7Zc6` (string) - 口座ID
+    + `additionId`  : `ad_sakBUM8PY` (string) - 加算ID
+
++ Response 200 (application/json)
+
+    + Attribute (Addition)
+
+## 加算をキャンセルする [DELETE /accounts/{accountId}/additions/{additionId}]
+
++ Parameters
+    + `accountId`   : `ac_K6p7d7Zc6` (string) - 口座ID
+    + `additionId`  : `ad_sakBUM8PY` (string) - 加算ID
+
++ Response 204
+
+## Data Structure
+
+### Addition
+
++ `additionId`          : `ad_sakBUM8PY` (string, required) - 加算ID
++ `value`               : `10000` (number, required) - 加算額
++ `description`         : `Description ....` (string, required) - 摘要
++ `sourceTransactionId` : `transaction_0000001` (string, required) - 元取引ID
++ `createdAt`           : `2001-08-02T10:45:23+09:00` (string, required) - 作成日時
++ `executedAt`          : `2001-08-02T10:50:25+09:00` (string, nullable) - 取引実行日時
++ `status`              : `created` (string, required) - ステータス
++ `causeCode`           : `0000` (string, required) -  原因コード

@@ -1,0 +1,15 @@
+{
+  "name": "shrine-docs",
+  "version": "1.0.0",
+  "description": "shrine document powered by apiblueprint.",
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/aglio -i apidocs/index.apib -o index.html"
+  },
+  "author": "sat8bit",
+  "license": "ISC",
+  "dependencies" : {
+    "aglio" : "*",
+    "api-mock" : "*"
+  }
+}

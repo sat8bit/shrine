@@ -1,0 +1,32 @@
+
+# Group 口座API
+
+## 口座を作成する [POST /accounts]
+
++ Request (application/json)
+
+    + Attribute
+
++ Response 201 (application/json)
+
+    + Attribute (Account)
+
+## 口座を参照する [GET /accounts/{accountId}]
+
++ Parameters
+    + `accountId`: `ac_K6p7d7Zc6` (string) - 口座ID
+
++ Response 200 (application/json)
+
+    + Attribute (Account)
+
+## Data Structure
+
+### Account
+
++ `accountId`        : `ac_K6p7d7Zc6` (string, required) - 口座ID
++ `value`            : `0` (number, required) - 残高
++ `createdAt`        : `2001-08-02T10:45:23+09:00` (string, required) - 作成日時
++ `lastAddedAt`      : `2001-08-02T10:55:23+09:00` (string) - 最終加算日時
++ `lastSubtractedAt` : `2001-08-02T11:05:23+09:00` (string) - 最終減算日時
+
